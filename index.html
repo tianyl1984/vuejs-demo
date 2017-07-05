@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+        <title>Vue.js例子</title>
+        <meta charset="utf-8">
+        <script src="/vue.js"></script>
+    </head>
+    <body>
+    	<div id="app" v-bind:title="title" v-bind:aaa="aaa">
+    		{{message}}
+    		<button v-on:click="reverse">反转显示</button>
+    		<input v-model="message">
+    	</div>
+    	<div id="app2"><p v-if="show">显示内容</p></div>
+    	<div id="app3">
+    		<ul>
+    			<li v-for="stu in stus">{{stu.name}}-{{stu.age}}</li>
+    		</ul>
+    	</div>
+        <div id='app4'>
+            <todo v-bind:todoitems='todos'></todo>
+        </div>
+    </body>
+    <script type="text/javascript">
+    	var app = new Vue({
+    		el:"#app",
+    		data:{
+    			message:"Hello Vue",
+    			title:"v-bind指令，这是title:" + new Date(),
+    			aaa:"v-bind自定义属性值"
+    		},
+    		methods:{
+    			"reverse":function(){
+    				this.message = this.message.split('').reverse().join('');
+    			}
+    		}
+    	});
+
+    	var app2 = new Vue({
+    		el:"#app2",
+    		data:{
+    			show:true
+    		}
+    	});
+
+    	var app3 = new Vue({
+    		el:"#app3",
+    		data:{
+    			stus:[
+    				{name:"张三",age:23},
+    				{name:"李四",age:21},
+    				{name:"王五",age:54},
+    			]
+    		}
+    	});
+
+        Vue.component('todo',{
+            props:['todoitems'],
+            template:'<ul><li v-for="todo in todoitems">{{todo}}</li></ul>'
+        });
+        var app4 = new Vue({
+            el:"#app4",
+            data:{
+                todos:["吃饭","睡觉","吃饭2"]
+            }
+        })
+    </script>
+</html>
